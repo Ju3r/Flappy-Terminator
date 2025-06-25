@@ -14,17 +14,17 @@ public class Game : MonoBehaviour
 
     private void OnEnable()
     {
-        _alien.Died += Stopping;
-        _startWindow.PlayButtonClicked += Starting;
-        _restartWindow.RestartButtonClicked += Restarting;
+        _alien.Died += StopPlay;
+        _startWindow.PlayButtonClicked += StartPlay;
+        _restartWindow.RestartButtonClicked += Restart;
         _enemySpawner.EnemyKilledByPlayer += AddPlayerScore;
     }
 
     private void OnDisable()
     {
-        _alien.Died -= Stopping;
-        _startWindow.PlayButtonClicked -= Starting;
-        _restartWindow.RestartButtonClicked -= Restarting;
+        _alien.Died -= StopPlay;
+        _startWindow.PlayButtonClicked -= StartPlay;
+        _restartWindow.RestartButtonClicked -= Restart;
         _enemySpawner.EnemyKilledByPlayer += AddPlayerScore;
     }
 
@@ -35,20 +35,20 @@ public class Game : MonoBehaviour
         _alien.DeactivateMover();
     }
 
-    private void Stopping()
+    private void StopPlay()
     {
         _restartWindow.Show();
         Time.timeScale = _pauseValue;
         _inputReader.Deactivate();
     }
 
-    private void Starting()
+    private void StartPlay()
     {
         _startWindow.Hide();
         Play();
     }
 
-    private void Restarting()
+    private void Restart()
     {
         _restartWindow.Hide();
         Play();

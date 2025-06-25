@@ -24,7 +24,7 @@ public class EnemyShooter : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            _coroutine = StartCoroutine(Attack());
+            _coroutine = StartCoroutine(Attack()); 
         }
     }
 
@@ -40,10 +40,10 @@ public class EnemyShooter : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        WaitForSeconds delay = new WaitForSeconds(_delay);
+
         while (enabled)
         {
-            WaitForSeconds delay = new WaitForSeconds(_delay);
-
             yield return delay;
 
             StartAnimation();

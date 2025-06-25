@@ -7,7 +7,7 @@ using UnityEngine.Pool;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<Enemy> _prefabs;
-    [SerializeField] private List<Line> _linePositions;
+    [SerializeField] private List<SpawnPosition> _spawnPositions;
     [SerializeField] private BulletSpawner _bulletSpawner;
     [SerializeField] private int _defaultPoolSize = 20;
     [SerializeField] private int _maxPoolSize = 50;
@@ -109,9 +109,9 @@ public class EnemySpawner : MonoBehaviour
         return _prefabs[prefabIndex];
     }
 
-    private void SetOnLine(Enemy enemy, Line line)
+    private void SetOnSpawnPosition(Enemy enemy, SpawnPosition spawnPosition)
     {
-        enemy.transform.position = line.transform.position;
+        enemy.transform.position = spawnPosition.transform.position;
     }
 
     private IEnumerator Spawning()
@@ -120,10 +120,10 @@ public class EnemySpawner : MonoBehaviour
 
         while (_isActive)
         {
-            for (int i = 0; i < _linePositions.Count; i++)
+            for (int i = 0; i < _spawnPositions.Count; i++)
             {
                 Enemy enemy = _pool.Get();
-                SetOnLine(enemy, _linePositions[i]);
+                SetOnSpawnPosition(enemy, _spawnPositions[i]);
             }
             yield return wait;
         }
